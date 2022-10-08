@@ -28,7 +28,9 @@ const options = {
     socketTimeoutMS: 45000,
     family: 4
 }
-mongoose.connect(`mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.jinyli6.mongodb.net/?retryWrites=true&w=majority`, options)
+
+const MONGO_ATLAS = process.env.MONGO_ATLAS
+mongoose.connect(`${MONGO_ATLAS}`, options)
 
 /**
  * Start a server listening at port 4000 locally
