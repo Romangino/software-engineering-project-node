@@ -2,16 +2,17 @@
  * @file Implements an Express Node HTTP server.
  */
 import express, {Request, Response} from 'express';
+import mongoose from "mongoose";
 import UserDao from "./daos/UserDao";
 import UserController from "./controllers/UserController";
-import mongoose from "mongoose";
-import TuitController from "./controllers/TuitController";
 import TuitDao from "./daos/TuitDao";
+import TuitController from "./controllers/TuitController";
 
 const cors = require('cors')
 const app = express();
 app.use(cors());
 app.use(express.json());
+require('dotenv').config()
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome to Foundation of Software Engineering!!!!'));
@@ -27,7 +28,7 @@ const options = {
     socketTimeoutMS: 45000,
     family: 4
 }
-mongoose.connect('mongodb://localhost:27017/fsd', options)
+mongoose.connect(`mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@cluster0.jinyli6.mongodb.net/?retryWrites=true&w=majority`, options)
 
 /**
  * Start a server listening at port 4000 locally
