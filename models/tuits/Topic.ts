@@ -1,3 +1,12 @@
+/**
+ * @file Declare Topic data type representing a topic of a tuit.
+ */
+
+/**
+ * @typedef Topic Represents the topic of a tuit
+ * @property {string} topic The topic of a tuit
+ */
+
 export default class Topic {
     private topic: string='';
 

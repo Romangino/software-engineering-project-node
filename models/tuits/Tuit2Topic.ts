@@ -1,4 +1,14 @@
+/**
+ * @file Declare Tuit to Topic type mapping a Tuit to a Topic.
+ */
+
 import Tuit from "./Tuit";
+
+/**
+ * @typedef Tuit2Topic Represents the topic of a tuit
+ * @property {string} topic The topic of a tuit
+ * @property {Tuit} tuit the tuit that will have a topic
+ */
 
 export default class Tuit2Topic {
     private topic: string='';

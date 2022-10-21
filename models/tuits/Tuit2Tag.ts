@@ -1,4 +1,14 @@
+/**
+ * @file Declare Tuit to Tag type mapping a Tuit to a Tag.
+ */
+
 import Tuit from "./Tuit";
+
+/**
+ * @typedef Tuit2Tag Represents a tag of a tuit
+ * @property {string} tag The tag of a tuit
+ * @property {Tuit} tuit the tuit that will have a tag
+ */
 
 export default class Tuit2Tag {
     private tag: string ='';

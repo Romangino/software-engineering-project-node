@@ -1,3 +1,12 @@
+/**
+ * @file Declare Tag data type representing a tag on a tuit.
+ */
+
+/**
+ * @typedef Tag Represents a tag of a tuit
+ * @property {string} tag The tag of a tuit
+ */
+
 export default class Tag {
     private tag: string = '';
 
