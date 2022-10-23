@@ -4,28 +4,30 @@
  */
 import TuitModel from "../mongoose/tuits/TuitModel";
 import Tuit from "../models/tuits/Tuit";
-import TuitDaoI from "../interfaces/TuitDaoI";
+import TuitDaoI from "../interfaces/tuits/TuitDaoI";
+
 
 /**
- * @class UserDao Implements Data Access Object managing data storage
- * of Users
- * @property {UserDao} userDao Private single instance of UserDao
+ * @class TuitDao Implements Data Access Object managing data storage
+ * of Tuits
+ * @property {TuitDao} tuitDao Private single instance of UserDao
  */
-/**
- * @class UserDao Implements Data Access Object managing data storage
- * of Users
- * @property {UserDao} userDao Private single instance of UserDao
- */
-export default class TuitDao implements TuitDaoI{
+export default class TuitDao implements TuitDaoI {
     private static tuitDao: TuitDao | null = null;
+
+    /**
+     * Creates singleton DAO instance
+     * @returns TuitDao
+     */
     public static getInstance = (): TuitDao => {
-        if(TuitDao.tuitDao === null) {
+        if (TuitDao.tuitDao === null) {
             TuitDao.tuitDao = new TuitDao();
         }
         return TuitDao.tuitDao;
     }
 
-    public constructor() {}
+    public constructor() {
+    }
 
 
     /**

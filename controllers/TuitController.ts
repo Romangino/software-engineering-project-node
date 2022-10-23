@@ -5,7 +5,7 @@
 import TuitDao from "../daos/TuitDao";
 import Tuit from "../models/tuits/Tuit";
 import {Express, Request, Response} from "express";
-import TuitControllerI from "../interfaces/TuitControllerI";
+import TuitControllerI from "../interfaces/tuits/TuitControllerI";
 
 /**
  * @class TuitController Implements RESTful Web service API for tuits resource.
@@ -34,7 +34,7 @@ export default class TuitController implements TuitControllerI {
      * @return TuitController
      */
     public static getInstance = (app: Express): TuitController => {
-        if(TuitController.tuitController === null) {
+        if (TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/api/tuits", TuitController.tuitController.findAllTuits);
             app.get("/api/tuits/:uid/tuits", TuitController.tuitController.findTuitsByUser);
@@ -46,7 +46,8 @@ export default class TuitController implements TuitControllerI {
         return TuitController.tuitController;
     }
 
-    constructor() {}
+    constructor() {
+    }
 
     /**
      * Retrieves all tuits from the database and returns an array of tuits.

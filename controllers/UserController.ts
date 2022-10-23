@@ -5,7 +5,7 @@
 import UserDao from "../daos/UserDao";
 import User from "../models/users/User";
 import {Express, Request, Response} from "express";
-import UserControllerI from "../interfaces/UserControllerI";
+import UserControllerI from "../interfaces/users/UserControllerI";
 
 /**
  * @class UserController Implements RESTful Web service API for users resource.
@@ -26,7 +26,7 @@ export default class UserController implements UserControllerI {
     private static userController: UserController | null = null
 
     public static getInstance = (app: Express): UserController => {
-        if(UserController.userController === null) {
+        if (UserController.userController === null) {
             UserController.userController = new UserController();
 
             // RESTful User Web service API
@@ -46,7 +46,8 @@ export default class UserController implements UserControllerI {
         return UserController.userController;
     }
 
-    constructor() {}
+    constructor() {
+    }
 
     /**
      * Retrieves all users from the database and returns an array of users.

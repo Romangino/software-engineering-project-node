@@ -5,7 +5,7 @@
 
 import UserModel from "../mongoose/users/UserModel";
 import User from "../models/users/User";
-import UserDaoI from "../interfaces/UserDaoI";
+import UserDaoI from "../interfaces/users/UserDaoI";
 
 /**
  * @class UserDao Implements Data Access Object managing data storage
@@ -20,15 +20,19 @@ export default class UserDao implements UserDaoI {
      * @returns UserDao
      */
     public static getInstance = (): UserDao => {
-        if(UserDao.userDao === null) {
+        if (UserDao.userDao === null) {
             UserDao.userDao = new UserDao();
         }
         return UserDao.userDao;
     }
 
-    private constructor() {}
+    private constructor() {
+    }
 
-
+    /**
+     * Uses UserModel to retrieve all user document from users collection
+     * @returns Promise To be notified when users are retrieved from the database
+     */
     findAllUsers = async (): Promise<User[]> =>
         UserModel.find().exec();
 

@@ -5,17 +5,25 @@
  *     <li>users</li>
  *     <li>tuits</li>
  *     <li>likes</li>
+ *     <li>follows</li>
+ *     <li>bookmarks</li>
+ *     <li>messages</li>
  * </ul>
  *
  * Connects to a remote MongoDB instance hosted on the Atlas cloud database
  * service
  */
 import express, {Request, Response} from 'express';
+import mongoose from "mongoose";
 import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
 import LikeController from "./controllers/LikeController";
-import mongoose from "mongoose";
+import FollowController from "./controllers/FollowController";
+import MessageController from "./controllers/MessageController";
+import BookmarkController from "./controllers/BookmarkController";
+
 const cors = require('cors')
+// Allows a .env file to be created to store environment variables
 require('dotenv').config()
 
 // Options for mongoDB
@@ -50,6 +58,9 @@ app.get('/', (req: Request, res: Response) =>
 const userController = UserController.getInstance(app);
 const tuitController = TuitController.getInstance(app);
 const likesController = LikeController.getInstance(app);
+const followController = FollowController.getInstance(app);
+const messageController = MessageController.getInstance(app);
+const bookmarkController = BookmarkController.getInstance(app);
 
 /**
  * Start a server listening at port 4000 locally

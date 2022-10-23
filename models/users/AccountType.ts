@@ -14,4 +14,5 @@ enum AccountType {
     Academic = 'ACADEMIC',
     Professional = 'PROFESSIONAL'
 }
+
 export default AccountType;

@@ -4,6 +4,7 @@
 
 import mongoose, {Schema} from "mongoose";
 import Tuit from "../../models/tuits/Tuit";
+
 /**
  * @typedef TuitSchema Represents tuits
  * @property {string} tuit Content of the tuit

@@ -8,7 +8,7 @@
  */
 
 export default class Topic {
-    private topic: string='';
+    private topic: string = '';
 
     constructor(topic: string) {
         this.topic = topic;
