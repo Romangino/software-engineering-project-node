@@ -10,7 +10,7 @@ export default interface TuitControllerI {
 
     findTuitsByUser(req: Request, res: Response): void;
 
-    createTuit(req: Request, res: Response): void;
+    createTuitByUser(req: Request, res: Response): void;
 
     updateTuit(req: Request, res: Response): void;
 

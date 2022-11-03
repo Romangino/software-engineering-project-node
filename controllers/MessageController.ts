@@ -85,7 +85,7 @@ export default class MessageController implements MessageControllerI {
      */
     findAllMessagesSentByUser = (req: Request, res: Response) =>
         MessageController.messageDao.findAllMessagesSentByUser(req.params.uid)
-            .then(message => res.json(message))
+            .then(messages => res.json(messages))
 
     /**
      * Removes a message instance from the database

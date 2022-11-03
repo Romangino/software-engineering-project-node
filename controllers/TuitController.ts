@@ -37,9 +37,9 @@ export default class TuitController implements TuitControllerI {
         if (TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
             app.get("/api/tuits", TuitController.tuitController.findAllTuits);
-            app.get("/api/tuits/:uid/tuits", TuitController.tuitController.findTuitsByUser);
+            app.get("/api/users/:uid/tuits", TuitController.tuitController.findTuitsByUser);
             app.get("/api/tuits/:tid", TuitController.tuitController.findTuitById);
-            app.post("/api/tuits", TuitController.tuitController.createTuit);
+            app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
             app.put("/api/tuits/:tid", TuitController.tuitController.updateTuit);
             app.delete("/api/tuits/:tid", TuitController.tuitController.deleteTuit);
         }
@@ -88,8 +88,8 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON containing the new tuit that was inserted in the
      * database
      */
-    createTuit = (req: Request, res: Response) =>
-        TuitController.tuitDao.createTuit(req.body)
+    createTuitByUser = (req: Request, res: Response) =>
+        TuitController.tuitDao.createTuitByUser(req.params.uid, req.body)
             .then((tuit: Tuit) => res.json(tuit));
 
     /**
