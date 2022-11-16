@@ -1,5 +1,5 @@
 /**
- * @file Declares Controller RESTful Web service API for likes resource
+ * @file Declares Controller RESTful Web service API for group resource
  */
 
 // add model here
