@@ -24,7 +24,6 @@ import BookmarkController from "./controllers/BookmarkController";
 
 const cors = require('cors')
 // Allows a .env file to be created to store environment variables
-// TODO: create .env file that holds DB_USERNAME and DB_PASSWORD
 require('dotenv').config()
 
 // Options for mongoDB
@@ -38,11 +37,10 @@ const options = {
     family: 4
 }
 // build the connection string
-// TODO: Update database connection for project
 const PROTOCOL = "mongodb+srv";
 const DB_USERNAME = process.env.DB_USERNAME;
 const DB_PASSWORD = process.env.DB_PASSWORD;
-const HOST = "cluster0.jinyli6.mongodb.net";
+const HOST = "cluster0.olu5i3x.mongodb.net";
 const DB_NAME = "tuiter";
 const DB_QUERY = "retryWrites=true&w=majority";
 const connectionString = `${PROTOCOL}://${DB_USERNAME}:${DB_PASSWORD}@${HOST}/${DB_NAME}?${DB_QUERY}`;
@@ -54,7 +52,7 @@ app.use(express.json());
 app.use(cors());
 
 app.get('/', (req: Request, res: Response) =>
-    res.send('Welcome to Foundation of Software Engineering!'));
+    res.send('Welcome to Software Engineering Final Project!'));
 
 // create RESTful Web service API
 const userController = UserController.getInstance(app);
