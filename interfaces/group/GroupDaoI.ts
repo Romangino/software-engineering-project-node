@@ -2,7 +2,7 @@
  * @file Declares Controller RESTful Web service API for group resource
  */
 
-// add model here
+import Group from "../../models/group/Group";
 
 export default interface GroupDaoI {
 

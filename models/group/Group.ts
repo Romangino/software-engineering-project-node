@@ -13,6 +13,7 @@ import mongoose, {Collection} from "mongoose";
  * @property {string} groupName group's name
  * @property {string} description group's name
  */
+
 export default interface Group {
     _id?: mongoose.Schema.Types.ObjectId,
     members: Collection<String>
