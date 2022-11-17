@@ -6,9 +6,9 @@ import Group from "../../models/group/Group";
 
 export default interface GroupDaoI {
 
-    userCreatesGroup(uid: string, group: Group): Promise<Group>
+    userCreatesGroup(uid: string, group: Group): Promise<Group>;
 
-    findAllGroupsForUser(uid: string): Promise<Group[]>
+    findAllGroupsForUser(uid: string): Promise<Group[]>;
 
     updateGroup(uid: string, gid: string, group:Group): Promise<any>;
 

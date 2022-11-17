@@ -2,7 +2,7 @@
  * @file Declare Group data type representing a group.
  */
 
-import mongoose, {Collection} from "mongoose";
+import mongoose from "mongoose";
 
 /**
  * @typedef Group Represents a group of user
@@ -16,9 +16,9 @@ import mongoose, {Collection} from "mongoose";
 
 export default interface Group {
     _id?: mongoose.Schema.Types.ObjectId,
-    members: String[]
-    createdOn?: Date
-    admin: String[]
-    groupName: string
+    members: String[],
+    createdOn?: Date,
+    admin: String[],
+    groupName: string,
     description: string
 };
