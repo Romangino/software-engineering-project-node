@@ -4,7 +4,13 @@
  */
 import GroupDaoI from "../interfaces/group/GroupDaoI";
 import Group from "../models/group/Group";
+import GroupModel from "../mongoose/groups/GroupModel"
 
+/**
+ * @class GroupDao Implements Data Access Object managing data storage
+ * of Groups
+ * @property {GroupDao} groupDao Private single instance of GroupDao
+ */
 export default class GroupDao implements GroupDaoI {
     private static groupDao: GroupDao | null = null
 
@@ -22,29 +28,60 @@ export default class GroupDao implements GroupDaoI {
     private constructor() {
     }
 
-    deleteGroup(uid: string, gid: string): Promise<any> {
-        return Promise.resolve(undefined);
-    }
+    /**
+     * Removes group object with given primary key from database.
+     * @param {string} uid Primary key of user
+     * @param {string} gid Primary key of group
+     * @returns Promise To be notified when group is removed from the database
+     */
+    deleteGroup = async (uid: string, gid: string): Promise<any> =>
+        GroupModel.deleteOne({_id: gid})
 
-    findAllCommonGroupsAnotherUser(active_uid: string, other_uid: string): Promise<Group[]> {
-        return Promise.resolve([]);
-    }
+    /**
+     * Finds all groups with both active user and other user
+     * @param {string} active_uid Primary key of active user
+     * @param {string} other_uid Primary key of other user
+     * @returns Promise To be notified when group is retrieved from database
+     */
+    findAllCommonGroupsAnotherUser = async (active_uid: string, other_uid: string): Promise<Group[]> =>
+        GroupModel.find({members: {$all: [active_uid, other_uid]}})
 
-    findAllGroupsForUser(uid: string): Promise<Group[]> {
-        return Promise.resolve([]);
-    }
+    /**
+     * Finds all groups that a user is in
+     * @param {string} uid Primary key of user
+     * @returns Promise To be notified when group is retrieved from database
+     */
+    findAllGroupsForUser = async (uid: string): Promise<Group[]> =>
+        GroupModel.find({members: uid})
 
-    findGroupByName(group_name: string, uid: string): Promise<Group[]> {
-        return Promise.resolve([]);
-    }
+    /**
+     * Finds group by group name that only the user is in
+     * @param {string} group_name The name of the group
+     * @param {string} uid Primary key of user
+     * @returns Promise To be notified when group is retrieved
+     */
+    findGroupByName = async (group_name: string, uid: string): Promise<Group[]> =>
+        GroupModel.find({groupName: group_name, members: uid})
 
-    updateGroup(uid: string, gid: string, group: Group): Promise<any> {
-        return Promise.resolve(undefined);
-    }
+    /**
+     * Updates group with new values in the database.
+     * @param {string} uid Primary key of user
+     * @param {string} gid Primary key of group
+     * @param {Group} group Group body with new values for group
+     * @returns Promise To be notified when group is updated in database
+     */
+    updateGroup = async (uid: string, gid: string, group: Group): Promise<any> =>
+        GroupModel.updateOne(
+            {_id: gid},
+            {$set: group})
 
-    userCreatesGroup(uid: string, group: Group): Promise<Group> {
-        return Promise.resolve(undefined);
-    }
-
+    /**
+     * Inserts group object into database
+     * @param {string} uid Primary key of user creating group
+     * @param {Group} group
+     * @returns Promise To be notified when group is inserted into database
+     */
+    userCreatesGroup = async (uid: string, group: Group): Promise<Group> =>
+        GroupModel.create({...group, members: [uid], admin: [uid]})
 
 }
