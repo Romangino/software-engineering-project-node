@@ -65,12 +65,11 @@ export default class GroupDao implements GroupDaoI {
 
     /**
      * Updates group with new values in the database.
-     * @param {string} uid Primary key of user
      * @param {string} gid Primary key of group
      * @param {Group} group Group body with new values for group
      * @returns Promise To be notified when group is updated in database
      */
-    updateGroup = async (uid: string, gid: string, group: Group): Promise<any> =>
+    updateGroup = async (gid: string, group: Group): Promise<any> =>
         GroupModel.updateOne(
             {_id: gid},
             {$set: group})
