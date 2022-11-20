@@ -34,7 +34,7 @@ export default class GroupDao implements GroupDaoI {
      * @param {string} gid Primary key of group
      * @returns Promise To be notified when group is removed from the database
      */
-    deleteGroup = async (uid: string, gid: string): Promise<any> =>
+    deleteGroup = async (gid: string): Promise<any> =>
         GroupModel.deleteOne({_id: gid})
 
     /**
