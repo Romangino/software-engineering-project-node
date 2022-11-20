@@ -64,6 +64,14 @@ export default class GroupDao implements GroupDaoI {
         GroupModel.find({groupName: group_name, members: uid})
 
     /**
+     * Finds group by group id
+     * @param {string} gid Primary key of group
+     * @returns Promise To be notified when group is retrieved
+     */
+    findGroupByGroupId = async (gid: string): Promise<any> =>
+        GroupModel.findById(gid)
+
+    /**
      * Updates group with new values in the database.
      * @param {string} gid Primary key of group
      * @param {Group} group Group body with new values for group

@@ -16,5 +16,7 @@ export default interface GroupDaoI {
 
     findGroupByName(group_name: string, uid: string): Promise<Group[]>;
 
+    findGroupByGroupId(gid: string): Promise<any>
+
     findAllCommonGroupsAnotherUser(active_uid: string, other_uid: string): Promise<Group[]>;
 };
