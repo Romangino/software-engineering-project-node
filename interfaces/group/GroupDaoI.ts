@@ -12,7 +12,7 @@ export default interface GroupDaoI {
 
     updateGroup(gid: string, group:Group): Promise<any>;
 
-    deleteGroup(gid: string): Promise<any>;
+    deleteGroup(uid: string, gid: string): Promise<any>;
 
     findGroupByName(group_name: string, uid: string): Promise<Group[]>;
 
