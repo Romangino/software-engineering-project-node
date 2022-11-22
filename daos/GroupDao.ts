@@ -88,7 +88,21 @@ export default class GroupDao implements GroupDaoI {
      * @param {Group} group
      * @returns Promise To be notified when group is inserted into database
      */
-    userCreatesGroup = async (uid: string, group: Group): Promise<Group> =>
-        GroupModel.create({...group, members: [uid], admin: [uid]})
+    userCreatesGroup = async (uid: string, group: Group): Promise<Group> => {
+        let members = group.members === undefined ? [] : group.members
+        members.push(uid)
+
+        let admins = group.admin === undefined ? [] : group.admin
+        admins.push(uid)
+
+        let newGroup = {
+            members: members,
+            createdOn: group.createdOn,
+            admin: admins,
+            groupName: group.groupName,
+            description: group.description
+        }
+        return GroupModel.create(newGroup)
+    }
 
 }
