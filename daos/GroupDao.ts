@@ -61,7 +61,7 @@ export default class GroupDao implements GroupDaoI {
      * @returns Promise To be notified when group is retrieved
      */
     findGroupByName = async (group_name: string, uid: string): Promise<Group[]> =>
-        GroupModel.find({groupName: group_name, members: uid})
+        GroupModel.find({groupName: group_name, members: uid}).collation({locale: "en", strength: 2})
 
     /**
      * Finds group by group id
