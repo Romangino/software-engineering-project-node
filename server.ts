@@ -21,6 +21,7 @@ import LikeController from "./controllers/LikeController";
 import FollowController from "./controllers/FollowController";
 import MessageController from "./controllers/MessageController";
 import BookmarkController from "./controllers/BookmarkController";
+import GroupController from "./controllers/GroupController";
 
 const cors = require('cors')
 // Allows a .env file to be created to store environment variables
@@ -61,6 +62,7 @@ const likesController = LikeController.getInstance(app);
 const followController = FollowController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
+const groupController = GroupController.getInstance(app)
 
 /**
  * Start a server listening at port 4000 locally
