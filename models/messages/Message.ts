@@ -3,17 +3,18 @@
  * another user.
  */
 import User from "../users/User";
+import Group from "../group/Group";
 
 /**
  * @typedef Message Represents message being sent from one user to another user
  * @property {string} message the contents of the message
- * @property {User} to User that is receiving the message
+ * @property {Group} to Group that is receiving the message
  * @property {User} from User that is sending the message
  * @property {Date} date Date of when the message was sent
  */
 export default interface Message {
     message: string,
-    to: User,
+    to: Group,
     from: User,
     date?: Date
 };
