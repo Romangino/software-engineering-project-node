@@ -43,13 +43,13 @@ export default class MessageController implements MessageControllerI {
             app.get("/api/users/:uid/messages", MessageController.messageController
                 .findAllMessagesSentByUser);
 
-            app.get("/api/users/:gid/messages", MessageController.messageController
+            app.get("/api/groups/:gid/messages", MessageController.messageController
                 .findAllMessagesInGroup);
 
             app.delete("/api/messages/:mid", MessageController.messageController
                 .userDeleteMessage);
 
-            app.post("/api/users/:uid/messages/:ouid", MessageController.messageController
+            app.post("/api/users/:uid/messages/:gid", MessageController.messageController
                 .userMessageGroup);
 
             app.put("/api/users/:mid/messages", MessageController.messageController
@@ -136,7 +136,7 @@ export default class MessageController implements MessageControllerI {
      userMessageGroup = (req: Request, res: Response) =>
         MessageController.messageDao.userMessageGroup(
             req.params.uid,
-            req.params.ouid,
+            req.params.gid,
             req.body
         ).then((message: Message) => res.json(message))
 }
