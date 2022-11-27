@@ -60,6 +60,18 @@ export default class MessageDao implements MessageDaoI {
             .exec();
 
     /**
+     * Uses MessageModel to retrieve messages in a group
+     * @param gid Group's primary key
+     * @return {Promise} Promise to be notified when messages sent to group
+     * are retrieved from database
+     */
+    findAllMessagesInGroup = async (gid: string): Promise<Message[]> =>
+        MessageModel
+            .find({to: gid})
+            .populate("message")
+            .exec();
+
+    /**
      * Uses MessageModel to remove a message from message collection in database
      * @param mid Primary key of message
      * @return {Promise} Promise to be notified when message is removed from database
@@ -74,6 +86,17 @@ export default class MessageDao implements MessageDaoI {
      * @param {Message} message Message that is being sent from one user to another
      * user
      */
-    userMessageUser = async (uid: string, ouid: string, message: Message): Promise<Message> =>
+    userMessageGroup = async (uid: string, ouid: string, message: Message): Promise<Message> =>
         MessageModel.create({...message, from: uid, to: ouid})
+
+    /**
+     * Uses MessageModel to edit a message from message collection in database
+     * @param mid Primary key of message
+     * @param message Content of the message 
+     * @return {Promise} Promise to be notified when message is updated in database
+     */
+     userEditMessage = async (mid: string, message: Message): Promise<any> =>
+     MessageModel.updateOne(
+        {_id: mid},
+        {$set: message});
 }
