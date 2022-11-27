@@ -43,7 +43,7 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesReceivedByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
-            .find({to: uid})
+            .find({group: uid})
             .populate("message")
             .exec();
 
@@ -55,7 +55,7 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesSentByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
-            .find({from: uid})
+            .find({sentBy: uid})
             .populate("message")
             .exec();
 
@@ -67,7 +67,7 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesInGroup = async (gid: string): Promise<Message[]> =>
         MessageModel
-            .find({to: gid})
+            .find({group: gid})
             .populate("message")
             .exec();
 
@@ -82,21 +82,21 @@ export default class MessageDao implements MessageDaoI {
     /**
      * Uses MessageModel to create a message instance in the database
      * @param {string} uid Primary key of user sending message
-     * @param {string} ouid Primary key of user receiving message
-     * @param {Message} message Message that is being sent from one user to another
+     * @param {string} gid Primary key of user receiving message
+     * @param {Message} content Message that is being sent from one user to another
      * user
      */
-    userMessageGroup = async (uid: string, ouid: string, message: Message): Promise<Message> =>
-        MessageModel.create({...message, from: uid, to: ouid})
+    userMessageGroup = async (uid: string, gid: string, content: Message): Promise<Message> =>
+        MessageModel.create({...content, sentBy: uid, group: gid})
 
     /**
      * Uses MessageModel to edit a message from message collection in database
      * @param mid Primary key of message
-     * @param message Content of the message 
+     * @param content Content of the message 
      * @return {Promise} Promise to be notified when message is updated in database
      */
-     userEditMessage = async (mid: string, message: Message): Promise<any> =>
+     userEditMessage = async (mid: string, content: Message): Promise<any> =>
      MessageModel.updateOne(
         {_id: mid},
-        {$set: message});
+        {$set: content});
 }
