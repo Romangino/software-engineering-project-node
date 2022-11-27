@@ -6,7 +6,7 @@ import Message from "../../models/messages/Message";
 export default interface MessageDaoI {
     findAllMessages(): Promise<Message[]>;
 
-    userMessageGroup(uid: string, ouid: string, message: Message): Promise<Message>;
+    userMessageGroup(uid: string, gid: string, message: Message): Promise<Message>;
 
     findAllMessagesSentByUser(uid: string): Promise<Message[]>;
 
