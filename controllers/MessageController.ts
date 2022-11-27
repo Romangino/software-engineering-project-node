@@ -41,13 +41,19 @@ export default class MessageController implements MessageControllerI {
                 .findAllMessagesReceivedByUser);
 
             app.get("/api/users/:uid/messages", MessageController.messageController
-                .findAllMessagesSentByUser)
+                .findAllMessagesSentByUser);
+
+            app.get("/api/users/:gid/messages", MessageController.messageController
+                .findAllMessagesInGroup);
 
             app.delete("/api/messages/:mid", MessageController.messageController
-                .userDeleteMessage)
+                .userDeleteMessage);
 
             app.post("/api/users/:uid/messages/:ouid", MessageController.messageController
-                .userMessageUser)
+                .userMessageGroup);
+
+            app.put("/api/users/:mid/messages", MessageController.messageController
+                .userEditMessage);
         }
         return MessageController.messageController;
     }
@@ -88,6 +94,17 @@ export default class MessageController implements MessageControllerI {
             .then(messages => res.json(messages))
 
     /**
+     * Retrieves all messages contained within a group from the database and returns an
+     * array of messages.
+     * @param {Request} req Represents request from client
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON arrays containing the message objects
+     */
+     findAllMessagesInGroup = (req: Request, res: Response) =>
+     MessageController.messageDao.findAllMessagesInGroup(req.params.gid)
+         .then(messages => res.json(messages))
+
+    /**
      * Removes a message instance from the database
      * @param {Request} req Represents request from client, including path
      * parameter mid identifying the primary key of the message to be removed
@@ -99,14 +116,25 @@ export default class MessageController implements MessageControllerI {
             .then(status => res.json(status))
 
     /**
+     * Edits a message instance from the database 
+     * @param {Request} req Represents request from client, including path
+     * parameter tid identifying the primary key of the tuit to be modified
+     * @param {Response} res Represents response to client, including status
+     * on whether updating a tuit was successful or not
+     */
+     userEditMessage = (req: Request, res: Response) =>
+     MessageController.messageDao.userEditMessage(req.params.mid, req.body)
+         .then(status => res.json(status));
+
+    /**
      * Creates a message instance from the database
      * @param {Request} req Represents request from client, including path
      * parameter mid identifying the primary key of the message to be removed
      * @param {Response} res Represents response to client, including the
      * body formatted as JSON containing the message object
      */
-    userMessageUser = (req: Request, res: Response) =>
-        MessageController.messageDao.userMessageUser(
+     userMessageGroup = (req: Request, res: Response) =>
+        MessageController.messageDao.userMessageGroup(
             req.params.uid,
             req.params.ouid,
             req.body
