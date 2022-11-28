@@ -5,6 +5,7 @@
 import MessageDaoI from "../interfaces/messages/MessageDaoI";
 import MessageModel from "../mongoose/messages/MessageModel";
 import Message from "../models/messages/Message";
+import GroupModel from "../mongoose/groups/GroupModel";
 
 /**
  * @class MessageDao Implements Data Access Object managing data storage of Messages.
@@ -36,16 +37,19 @@ export default class MessageDao implements MessageDaoI {
         MessageModel.find();
 
     /**
+     * DEPRECATED
      * Uses MessageModel to retrieve messages received by user
      * @param uid User's primary key
      * @return {Promise} Promise to be notified when messages received by user
      * are retrieved from database
      */
+    /*
     findAllMessagesReceivedByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
             .find({group: uid})
-            .populate("message")
+            .populate("content")
             .exec();
+     */
 
     /**
      * Uses MessageModel to retrieve messages sent by user
@@ -56,7 +60,7 @@ export default class MessageDao implements MessageDaoI {
     findAllMessagesSentByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
             .find({sentBy: uid})
-            .populate("message")
+            .populate("content")
             .exec();
 
     /**
@@ -68,7 +72,7 @@ export default class MessageDao implements MessageDaoI {
     findAllMessagesInGroup = async (gid: string): Promise<Message[]> =>
         MessageModel
             .find({group: gid})
-            .populate("message")
+            .populate("content")
             .exec();
 
     /**

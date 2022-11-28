@@ -37,10 +37,10 @@ export default class MessageController implements MessageControllerI {
             app.get("/api/messages", MessageController.messageController
                 .findAllMessages);
 
-            app.get("/api/messages/:uid", MessageController.messageController
+            app.get("/api/users/:uid/received", MessageController.messageController
                 .findAllMessagesReceivedByUser);
 
-            app.get("/api/users/:uid/messages", MessageController.messageController
+            app.get("/api/users/:uid/sent", MessageController.messageController
                 .findAllMessagesSentByUser);
 
             app.get("/api/groups/:gid/messages", MessageController.messageController
@@ -49,10 +49,10 @@ export default class MessageController implements MessageControllerI {
             app.delete("/api/messages/:mid", MessageController.messageController
                 .userDeleteMessage);
 
-            app.post("/api/users/:uid/messages/:gid", MessageController.messageController
+            app.post("/api/users/:uid/groups/:gid", MessageController.messageController
                 .userMessageGroup);
 
-            app.put("/api/users/:mid/messages", MessageController.messageController
+            app.put("/api/messages/:mid", MessageController.messageController
                 .userEditMessage);
         }
         return MessageController.messageController;
