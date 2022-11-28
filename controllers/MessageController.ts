@@ -37,9 +37,6 @@ export default class MessageController implements MessageControllerI {
             app.get("/api/messages", MessageController.messageController
                 .findAllMessages);
 
-            app.get("/api/users/:uid/received", MessageController.messageController
-                .findAllMessagesReceivedByUser);
-
             app.get("/api/users/:uid/sent", MessageController.messageController
                 .findAllMessagesSentByUser);
 
@@ -72,6 +69,7 @@ export default class MessageController implements MessageControllerI {
             .then(messages => res.json(messages));
 
     /**
+     * DEPRECATED
      * Retrieves all messages sent to user from the database and returns an
      * array of messages.
      * @param {Request} req Represents request from client

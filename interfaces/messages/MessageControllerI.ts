@@ -12,8 +12,6 @@ export default interface MessageControllerI {
 
     findAllMessagesInGroup(req: Request, res: Response): void;
 
-    findAllMessagesReceivedByUser(req: Request, res: Response): void;
-
     userDeleteMessage(req: Request, res: Response): void;
 
     userEditMessage(req: Request, res: Response): void;

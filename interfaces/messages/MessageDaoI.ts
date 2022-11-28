@@ -12,8 +12,6 @@ export default interface MessageDaoI {
 
     findAllMessagesInGroup(gid: string): Promise<Message[]>;
 
-    findAllMessagesReceivedByUser(uid: string): Promise<Message[]>;
-
     userDeleteMessage(mid: string): Promise<any>;
 
     userEditMessage(mid: string, message: Message): Promise<any>;
