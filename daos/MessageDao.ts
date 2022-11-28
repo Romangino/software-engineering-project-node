@@ -43,13 +43,11 @@ export default class MessageDao implements MessageDaoI {
      * @return {Promise} Promise to be notified when messages received by user
      * are retrieved from database
      */
-    /*
     findAllMessagesReceivedByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
             .find({group: uid})
             .populate("content")
             .exec();
-     */
 
     /**
      * Uses MessageModel to retrieve messages sent by user
