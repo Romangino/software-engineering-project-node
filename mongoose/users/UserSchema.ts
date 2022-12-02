@@ -24,7 +24,7 @@ import maritalStatus from "../../models/users/MaritalStatus";
  * @property {Location} location user's location
  */
 const UserSchema = new mongoose.Schema<User>({
-    username: {type: String, required: true, default: `testusername${Date.now()}`},
+    username: {type: String, required: true, default: `testusername${Date.now()}`, unique: true},
     password: {type: String, required: true, default: `testpassword${Date.now()}`},
     firstName: String,
     lastName: String,
