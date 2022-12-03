@@ -8,6 +8,8 @@ export default interface UserControllerI {
 
     findUserById(req: Request, res: Response): void;
 
+    findUserByUsername(req: Request, res: Response): void
+
     createUser(req: Request, res: Response): void;
 
     updateUser(req: Request, res: Response): void;

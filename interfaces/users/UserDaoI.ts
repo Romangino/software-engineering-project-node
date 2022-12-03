@@ -8,6 +8,8 @@ export default interface UserDaoI {
 
     findUserById(uid: string): Promise<any>;
 
+    findUserByUsername(username: string): Promise<any>
+
     createUser(user: User): Promise<User>;
 
     updateUser(uid: string, user: User): Promise<any>;
