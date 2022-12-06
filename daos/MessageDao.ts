@@ -5,6 +5,7 @@
 import MessageDaoI from "../interfaces/messages/MessageDaoI";
 import MessageModel from "../mongoose/messages/MessageModel";
 import Message from "../models/messages/Message";
+import GroupModel from "../mongoose/groups/GroupModel";
 
 /**
  * @class MessageDao Implements Data Access Object managing data storage of Messages.
@@ -36,6 +37,7 @@ export default class MessageDao implements MessageDaoI {
         MessageModel.find();
 
     /**
+     * DEPRECATED
      * Uses MessageModel to retrieve messages received by user
      * @param uid User's primary key
      * @return {Promise} Promise to be notified when messages received by user
@@ -43,8 +45,8 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesReceivedByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
-            .find({to: uid})
-            .populate("message")
+            .find({group: uid})
+            .populate("content")
             .exec();
 
     /**
@@ -55,8 +57,20 @@ export default class MessageDao implements MessageDaoI {
      */
     findAllMessagesSentByUser = async (uid: string): Promise<Message[]> =>
         MessageModel
-            .find({from: uid})
-            .populate("message")
+            .find({sentBy: uid})
+            .populate("content")
+            .exec();
+
+    /**
+     * Uses MessageModel to retrieve messages in a group
+     * @param gid Group's primary key
+     * @return {Promise} Promise to be notified when messages sent to group
+     * are retrieved from database
+     */
+    findAllMessagesInGroup = async (gid: string): Promise<Message[]> =>
+        MessageModel
+            .find({group: gid})
+            .populate("content")
             .exec();
 
     /**
@@ -70,10 +84,21 @@ export default class MessageDao implements MessageDaoI {
     /**
      * Uses MessageModel to create a message instance in the database
      * @param {string} uid Primary key of user sending message
-     * @param {string} ouid Primary key of user receiving message
-     * @param {Message} message Message that is being sent from one user to another
+     * @param {string} gid Primary key of user receiving message
+     * @param {Message} content Message that is being sent from one user to another
      * user
      */
-    userMessageUser = async (uid: string, ouid: string, message: Message): Promise<Message> =>
-        MessageModel.create({...message, from: uid, to: ouid})
+    userMessageGroup = async (uid: string, gid: string, content: Message): Promise<Message> =>
+        MessageModel.create({...content, sentBy: uid, group: gid})
+
+    /**
+     * Uses MessageModel to edit a message from message collection in database
+     * @param mid Primary key of message
+     * @param content Content of the message 
+     * @return {Promise} Promise to be notified when message is updated in database
+     */
+     userEditMessage = async (mid: string, content: Message): Promise<any> =>
+     MessageModel.updateOne(
+        {_id: mid},
+        {$set: content});
 }
