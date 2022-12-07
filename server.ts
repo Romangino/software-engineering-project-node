@@ -24,6 +24,7 @@ import BookmarkController from "./controllers/BookmarkController";
 import GroupController from "./controllers/GroupController";
 
 const cors = require('cors')
+const session = require('express-session')
 // Allows a .env file to be created to store environment variables
 require('dotenv').config()
 
@@ -50,7 +51,28 @@ mongoose.connect(connectionString, options);
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: true
+}));
+
+let sess = {
+    secret: process.env.SECRET,
+    saveUninitialized: true,
+    resave: true,
+    cookie: {
+        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === "production",
+    }
+}
+
+if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sess))
+app.use(express.json());
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome to Software Engineering Final Project!'));
