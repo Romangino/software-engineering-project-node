@@ -8,7 +8,7 @@ const AuthenticationController = (app: Express) => {
 
     const userDao: UserDao = UserDao.getInstance();
 
-    const login = async (req: Request, res: Response) => {
+    const login = async (req: any, res: any) => {
         const user = req.body;
         const username = user.username;
         const password = user.password;
@@ -23,7 +23,6 @@ const AuthenticationController = (app: Express) => {
 
         if (match) {
             existingUser.password = '*****';
-            // @ts-ignore
             req.session['profile'] = existingUser;
             res.json(existingUser);
         } else {
@@ -31,7 +30,7 @@ const AuthenticationController = (app: Express) => {
         }
     }
 
-    const register = async (req: Request, res: Response) => {
+    const register = async (req: any, res: any) => {
         const newUser = req.body;
         const password = newUser.password;
         newUser.password = await bcrypt.hash(password, saltRounds);
@@ -45,14 +44,12 @@ const AuthenticationController = (app: Express) => {
             const insertedUser = await userDao
                 .createUser(newUser);
             insertedUser.password = '';
-            // @ts-ignore
             req.session['profile'] = insertedUser;
             res.json(insertedUser);
         }
     }
 
-    const profile = (req: Request, res: Response) => {
-        // @ts-ignore
+    const profile = (req: any, res: any) => {
         const profile = req.session['profile'];
         if (profile) {
             res.json(profile);
@@ -61,8 +58,7 @@ const AuthenticationController = (app: Express) => {
         }
     }
 
-    const logout = (req: Request, res: Response) => {
-        // @ts-ignore
+    const logout = (req: any, res: any) => {
         req.session.destroy();
         res.sendStatus(200);
     }
